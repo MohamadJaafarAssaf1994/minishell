@@ -33,6 +33,8 @@ int	is_valid_identifier(char *str)
 	i = 1;
 	while (str[i] && str[i] != '=')
 	{
+		if (str[i] == '+' && str[i + 1] == '=')
+			return (1);
 		if (str[i] != '_' && !ft_isalnum(str[i]))
 			return (0);
 		i++;
@@ -49,7 +51,11 @@ int	get_env_index(char **env, char *arg)
 		return (-1);
 	key_len = 0;
 	while (arg[key_len] && arg[key_len] != '=')
+	{
+		if (arg[key_len] == '+' && arg[key_len + 1] == '=')
+			break ;
 		key_len++;
+	}
 	i = 0;
 	while (env[i])
 	{
